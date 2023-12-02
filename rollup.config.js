@@ -1,21 +1,14 @@
 import terser from "@rollup/plugin-terser";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
 import { dts } from "rollup-plugin-dts";
 
 const indexFile = {
 	input: "src/index.js",
 	output: [
 		{
-			file: "dist/index.js",
-			format: "iife",
-			name: "MouseSnow"
-		},
-		{
 			file: "dist/index.esm.js",
 			format: "esm"
 		}
-	],
-	plugins: [nodeResolve()]
+	]
 };
 
 const indexMinFile = {
@@ -27,7 +20,7 @@ const indexMinFile = {
 			name: "MouseSnow"
 		}
 	],
-	plugins: [nodeResolve(), terser()]
+	plugins: [terser()]
 };
 
 // 打包 typescript 声明文件
