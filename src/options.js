@@ -1,4 +1,4 @@
-import { randomHexColor } from "xtt-utils";
+import { randomHexColor } from "./unit.js";
 
 export default (options) => {
 	const defaultOptions = {

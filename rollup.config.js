@@ -1,5 +1,6 @@
 import terser from "@rollup/plugin-terser";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
+import { dts } from "rollup-plugin-dts";
 
 const indexFile = {
 	input: "src/index.js",
@@ -30,10 +31,10 @@ const indexMinFile = {
 };
 
 // 打包 typescript 声明文件
-// const dtsFile = {
-// 	input: "src/index.d.ts",
-// 	output: [{ file: "dist/index.d.ts", format: "es" }],
-// 	plugins: [dts()]
-// };
+const dtsFile = {
+	input: "src/index.d.ts",
+	output: [{ file: "dist/index.d.ts", format: "es" }],
+	plugins: [dts()]
+};
 
-export default [indexFile, indexMinFile];
+export default [indexFile, indexMinFile, dtsFile];
