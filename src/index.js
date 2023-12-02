@@ -97,12 +97,28 @@ export default class MouseSnow {
 	#createAnimation = this.#originCreateAnimation;
 
 	#originHandlePointerMove(e) {
+		// 如果是 touch 触发的 pointermove 事件，则不执行。执行原生的 touchmove 事件。
+		// 因为 pointermove 在 touch 类型时，仅会触发少数几次，如果想多次触发，必须设置 touch-action: none; CSS 属性，但是这属性会影响一些默认行为，这里不能使用
+		if (e.pointerType === "touch") {
+			return;
+		}
+
+		if (e.touches) {
+			for (let i = 0; i < e.touches.length; i++) {
+				const touch = e.touches.item(i);
+				this.#createAnimation(touch.clientX, touch.clientY);
+			}
+			return;
+		}
+
 		this.#createAnimation(e.x, e.y);
 	}
 	#handlePointerMove = this.#originHandlePointerMove.bind(this);
 
 	#bindEvents() {
-		this.#options.container.addEventListener("pointermove", this.#handlePointerMove);
+		const container = this.#options.container;
+		container.addEventListener("pointermove", this.#handlePointerMove);
+		container.addEventListener("touchmove", this.#handlePointerMove);
 	}
 
 	/**
@@ -127,6 +143,7 @@ export default class MouseSnow {
 				} else if (key === "container") {
 					// 赋值新的容器时，先解绑上一个容器的事件
 					target.container.removeEventListener("pointermove", this.#handlePointerMove);
+					target.container.removeEventListener("touchmove", this.#handlePointerMove);
 				}
 
 				target[key] = value;

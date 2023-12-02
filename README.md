@@ -1,9 +1,23 @@
 # MouseSnow
 
-## 入门
+## 安装
+
+npm
+
+```base
+npm i mousesnow
+```
+
+cdn
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/mousesnow/dist/index.min.js"></script>
+```
+
+## 使用
 
 ```js
-const snow = new MouseSnow(options);
+new MouseSnow(options);
 ```
 
 ## 参数
