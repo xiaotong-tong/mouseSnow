@@ -1,13 +1,24 @@
 {
 	"name": "mousesnow",
 	"version": "0.0.1",
-	"description": "",
+	"description": "鼠标移动特效",
 	"type": "module",
 	"main": "dist/index.js",
+	"browser": "dist/index.min.js",
+	"module": "dist/index.esm.js",
 	"scripts": {
 		"prebuild": "rimraf dist",
 		"build": "rollup -c rollup.config.js"
 	},
+	"exports": {
+		".": {
+			"default": "./dist/index.min.js",
+			"import": "./dist/index.esm.js"
+		}
+	},
+	"files": [
+		"dist"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/xiaotong-tong/mouseSnow.git"

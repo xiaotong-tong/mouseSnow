@@ -1,4 +1,4 @@
-import { css, throttle, random } from "xtt-utils";
+import { css, throttle } from "xtt-utils";
 import handleOption from "./options.js";
 
 class Animation {
