@@ -20,7 +20,26 @@ export default (options) => {
 					x: (Math.random() < 0.5 ? -1 : 1) * Math.random(),
 					y: 1
 				};
-			}
+			},
+		downPointSnow: {
+			isDisabled: options?.downPointSnow === false,
+			num: options?.downPointSnow?.num ?? 20,
+			character: options?.downPointSnow?.character ?? options?.character ?? "*",
+			size: options?.downPointSnow?.size ?? options?.size ?? "32px",
+			lifeSpan: options?.downPointSnow?.lifeSpan ?? options?.lifeSpan ?? 80,
+			destoryScalePercent: options?.downPointSnow?.destoryScalePercent ?? options?.destoryScalePercent ?? 0.3,
+			velocity:
+				options?.downPointSnow?.velocity ??
+				function () {
+					this.x = this.x ?? (Math.random() < 0.5 ? -1 : 1) * Math.random() * 2;
+					this.y = this.y ?? (Math.random() < 0.5 ? -1 : 1) * Math.random() * 2;
+
+					return {
+						x: this.x,
+						y: this.y
+					};
+				}
+		}
 	};
 
 	if (typeof defaultOptions.container === "string") {

@@ -91,8 +91,8 @@ export default class MouseSnow {
 		}
 	}
 
-	#originCreateAnimation(x, y) {
-		new Animation(x, y, this.#options);
+	#originCreateAnimation(x, y, options = this.#options) {
+		new Animation(x, y, options);
 	}
 	#createAnimation = this.#originCreateAnimation;
 
@@ -115,10 +115,26 @@ export default class MouseSnow {
 	}
 	#handlePointerMove = this.#originHandlePointerMove.bind(this);
 
+	#originHandlePointerDown(e) {
+		if (!this.#options.downPointSnow.isDisabled) {
+			for (let i = 0; i < this.#options.downPointSnow.num; i++) {
+				this.#originCreateAnimation(e.x, e.y, {
+					...this.#options,
+					...this.#options.downPointSnow
+				});
+			}
+		}
+	}
+	#handlePointerDown = this.#originHandlePointerDown.bind(this);
+
 	#bindEvents() {
 		const container = this.#options.container;
+		// 移动事件
 		container.addEventListener("pointermove", this.#handlePointerMove);
 		container.addEventListener("touchmove", this.#handlePointerMove);
+
+		// 点击事件
+		container.addEventListener("pointerdown", this.#handlePointerDown);
 	}
 
 	/**
@@ -144,6 +160,7 @@ export default class MouseSnow {
 					// 赋值新的容器时，先解绑上一个容器的事件
 					target.container.removeEventListener("pointermove", this.#handlePointerMove);
 					target.container.removeEventListener("touchmove", this.#handlePointerMove);
+					target.container.removeEventListener("pointerdown", this.#handlePointerDown);
 				}
 
 				target[key] = value;
