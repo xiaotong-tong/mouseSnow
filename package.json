@@ -1,6 +1,6 @@
 {
 	"name": "mousesnow",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "鼠标移动特效",
 	"type": "module",
 	"main": "dist/index.min.js",
